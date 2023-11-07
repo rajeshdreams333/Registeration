@@ -13,7 +13,7 @@ function validation(values){
     if (values.password ===""){
         error.password="Password should n't be empty"
     }
-    else if(!passwordPattern.test(values.email)){
+    else if(!passwordPattern.test(values.password)){
         error.password="Password not Match"
     }else {
         error.password=""

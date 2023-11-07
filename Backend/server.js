@@ -27,14 +27,29 @@ app.post('/Sign', (req, res) => {
   const { name, email, password } = req.body;
 
   // You should perform validation here before inserting data into the database.
-
   const query = `INSERT INTO login(name, email, password) VALUES (?)`;
-  db.query(query, [name, email, password], (err, result) => {
+  db.query(query, [[name, email, password]], (err, result) => {
     if (err) {
       console.error('Database error: ' + err);
       res.status(500).json({ success: false, message: 'Registration failed' });
     } else {
       res.json({ success: true, message: 'Registration successful' });
+    }
+  });
+});
+
+app.post('/Login', (req, res) => {
+  const { email, password } = req.body;
+
+  const query = "select * from login where `email` = ? and `password`= ? ";
+  db.query(query, [[email, password]], (err, result) => {
+    if (err) {
+      return res.json("Error");
+    } 
+    if(data.length >0) {
+      return res.json("Success");
+    }else{
+      return res.json("Failed");
     }
   });
 });

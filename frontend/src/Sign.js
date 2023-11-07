@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link,} from "react-router-dom";
+import { Link, useNavigate,} from "react-router-dom";
 import validation from "./SignupValidation";
 import axios from "axios";
 function Sign() {
@@ -8,7 +8,7 @@ function Sign() {
     email: "",
     password: "",
   });
-  // const navigate = useNavigate();
+const navigate =useNavigate();
   const [errors, setErrors] = useState({});
   const handleInput = (event) => {
     setValues((prev) => ({
@@ -19,12 +19,13 @@ function Sign() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(validation(values));
-    console.log(values);
     if (errors.name ==='' && errors.email ==='' && errors.password ==='')
     console.log(errors);
     try {
       const response = await axios.post('http://localhost:5000/Sign',values);
-      console.log(response.data);
+      if (response.data.success === true){
+          navigate('/')
+      }
     } catch (error) {
       console.error(error.response.data);
     }
