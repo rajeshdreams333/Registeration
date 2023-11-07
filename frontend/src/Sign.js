@@ -16,15 +16,17 @@ function Sign() {
       [event.target.name]: [event.target.value],
     }));
   };
-  const handleSubmit = async(event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setErrors(validation(values));
-    if (errors.name === "" && errors.email === "" && errors.password === "") {
-      try {const response = await axios.post('/signup',values);
-          console.log(response.data);
-          }catch (error) {
-        console.error(error.response.data);
-      }
+    console.log(values);
+    if (errors.name ==='' && errors.email ==='' && errors.password ==='')
+    console.log(errors);
+    try {
+      const response = await axios.post('http://localhost:5000/Sign',values);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.response.data);
     }
   };
   return (
